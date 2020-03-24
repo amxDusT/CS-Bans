@@ -1,17 +1,17 @@
-CS-Bans
+# Not Finished
+
+C(S)Bans
 =======
 
-Система управления банами и админами для игровых серверов Counter Strike 1.6
+Edited version of craft-soft's CS bans, made for CBan https://github.com/amxDusT/CBan-amxx and in English.
 
-Системные требования
+System Requirements
 --------------------
 
-PHP версии 5.3 и выше.
+PHP 5.3+.
 
-Расширения PHP: PDO, PDO-mysql, mbstring и gd.
+PHP extensions: PDO, PDO-mysql, mbstring, gd.
 
-Функции PHP: chmod, mkdir, copy
+PHP functions: chmod, mkdir, copy
 
-Включенный mod_rewrite
-
-MySQL версии 5.0 и выше.
+MySQL 5.0+.
