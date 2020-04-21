@@ -50,9 +50,9 @@ define('MODULES_MATCHES', implode('|', array_keys($modules)));
 // Главные параметры приложения
 return array(
 	'basePath'=>ROOTPATH . DIRECTORY_SEPARATOR . 'protected',
-	'name'=>'СS:Bans 1.3',
-	'sourceLanguage' => 'ru',
-	'language'=>'ru',
+	'name'=>'Testing',
+	'sourceLanguage' => 'en',
+	'language'=>'en',
 
 	// Предзагружаемые компоненты
 	'preload'=>array(
@@ -95,11 +95,12 @@ return array(
 		// ЧПУ
 		'urlManager'=>array(
 			'urlFormat'=>'path',
-			'showScriptName'=>false,
-			'urlSuffix'=>'.html',
+			//'showScriptName'=>false,
+			//'urlSuffix'=>'.html',
+			//'enablePrettyUrl'
 			'rules'=>array(
-				'/'=>'site/index',
-				
+				'/'=>'bans/index',
+
 				'billing/unban/<id:\d+>' => 'billing/default/unban',
 				'billing/<controller:\w+>/<action:\w+>/<id:\d+>' => 'billing/<controller>/<action>',
                 'billing/<controller:\w+>/<action:\w+>' => 'billing/<controller>/<action>',
@@ -113,7 +114,7 @@ return array(
 		),
 		
 		'format'=>array(
-			'booleanFormat'=>array('Нет', 'Да'),
+			'booleanFormat'=>array('No', 'Yes'),
 			'datetimeFormat'=>'d.m.Y H:i',
 		),
 
@@ -153,9 +154,9 @@ return array(
 	),
 
 	// Тема (темы лежат в themes)
-	'theme'=>'default',
+	'theme'=>'dark',
 
-	'homeUrl' => array('/site/index'),
+	'homeUrl' => array('/bans/index'),
 
 	// Дополнительные параметры (вызываются так: Yii::app()->params['adminEmail'])
 	'params'=>array(

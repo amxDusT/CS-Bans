@@ -25,9 +25,10 @@ class DConfig extends CApplicationComponent
     {
 		$key = CHtml::encode($key);
 		if (isset($this->data[$key])){
+            //print_r( $this->data );
 			return $this->data[$key];
         } else {
-            throw new CException('Undefined parameter '.$key);
+            throw new CException('Undefined parameter111'.$key);
         }
     }
 

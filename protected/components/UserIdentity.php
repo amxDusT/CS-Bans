@@ -23,10 +23,11 @@ class UserIdentity extends CUserIdentity
 	public function authenticate()
 	{
 		$username = strtolower($this->username);
+		
 		$user = Webadmins::model()->find('LOWER(username)=?', array($username));
 
 		Yii::import('ext.kcaptcha.KCaptchaValidator');
-
+		
 		if($user === null) {
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
 		}
