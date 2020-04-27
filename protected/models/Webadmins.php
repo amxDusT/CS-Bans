@@ -73,12 +73,9 @@ class Webadmins extends CActiveRecord
 			return FALSE;
 		}
 
-		if(isset($this) && get_class($this) == 'Webadmins') {
-			$model = &$this;
-		}
-		else {
-			$model = Webadmins::model()->with('levels')->findByPk(Yii::app()->user->id);
-		}
+		
+		$model = Webadmins::model()->with('levels')->findByPk(Yii::app()->user->id);
+	
 
 		//exit($model->levels->$access);
 
