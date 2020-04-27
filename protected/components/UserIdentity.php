@@ -28,14 +28,16 @@ class UserIdentity extends CUserIdentity
 
 		Yii::import('ext.kcaptcha.KCaptchaValidator');
 		
+		$cap = new KCaptchaValidator;
+
 		if($user === null) {
 			$this->errorCode = self::ERROR_USERNAME_INVALID;
 		}
 		elseif($user->try >= 3 && empty($_POST['verify'])) {
 			Yii::app()->request->cookies['captcha_auth'] = new CHttpCookie('captcha_auth', '1');
-			Yii::app()->controller->refresh();
+			$this->errorCode = self::ERROR_PASSWORD_INVALID;
 		}
-		elseif($user->try >= 3 && !KCaptchaValidator::testCode($_POST['verify'])) {
+		elseif($user->try >= 3 && !$cap->testCode($_POST['verify'])) {
 			$this->errorCode = self::ERROR_PASSWORD_INVALID;
 		}
 		elseif(!$user->validatePassword($this->password)) {
@@ -56,7 +58,10 @@ class UserIdentity extends CUserIdentity
 			$user->scenario = 'auth';
 			$user->save();
 
-			unset(Yii::app()->request->cookies['captha_auth']);
+			//unset doesn't seem to remove the cookie, so let's set this to 0.
+			Yii::app()->request->cookies['captcha_auth'] = new CHttpCookie('captcha_auth', '0');
+			unset(Yii::app()->request->cookies['captha_auth']); 
+			
 		}
 
 		return $this->errorCode == self::ERROR_NONE;
