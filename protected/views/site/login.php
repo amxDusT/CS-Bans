@@ -41,7 +41,7 @@ $this->breadcrumbs=array(
 
 	<?php echo $form->checkBoxRow($model,'rememberMe'); ?>
 
-	<?php if(CCaptcha::checkRequirements() && Yii::app()->request->cookies['captcha_auth']): ?>
+	<?php if(CCaptcha::checkRequirements() && Yii::app()->request->cookies['captcha_auth'] == '1' ): ?>
 		<div class="control-group">
 			<?php echo CHtml::label('Verification code', 'verify', array('class'=>'control-label'))?>
 			<div class="controls">
