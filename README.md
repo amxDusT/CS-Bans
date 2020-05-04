@@ -20,9 +20,3 @@ PHP extensions: PDO, PDO-mysql, mbstring, gd.
 PHP functions: chmod, mkdir, copy
 
 MySQL 5.0+.
-
-
-TO-DO: 
-- include chatmanager
-- include auto reset
-- include clan-protection
