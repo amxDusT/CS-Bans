@@ -136,8 +136,9 @@ class Ip2Country extends CApplicationComponent {
             }
         }
 
+        return 0;
         // Never supposed to end up here - something is wrong.
-        throw new Exception('Binary find failure');
+        //throw new Exception('Binary find failure');
     }
 
     /**
@@ -203,6 +204,7 @@ class Ip2Country extends CApplicationComponent {
 		if (!$ip) {
             return FALSE;
         }
+        
         return $this->lookupbin(inet_pton($ip));
     }
 }
