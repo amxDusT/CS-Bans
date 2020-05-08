@@ -56,7 +56,7 @@ class Bans extends CActiveRecord
 		return array(
 			array('player_nick', 'required'),
 			array('ban_length', 'numerical', 'integerOnly'=>true),
-			array('player_ip', 'match', 'pattern' => '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/'),
+			array('player_ip', 'match', 'pattern' => '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)|(IP_LAN)$/'),
 			array('player_id', 'match', 'pattern' => '/^(STEAM|VALVE)_([0-9]):([0-9]):\d{1,21}$/'),
 			array('player_nick, ban_reason', 'length', 'max'=>100),
 			array('ban_type', 'in', 'range' => array('S', 'SI','I')),
@@ -99,11 +99,13 @@ class Bans extends CActiveRecord
 	
 	protected function afterFind() {
 		$country = strtolower(Yii::app()->IpToCountry->lookup($this->player_ip));
+		$dump = substr(Yii::app()->urlManager->baseUrl, 0, -10);
 		$this->country = CHtml::image(
-            Yii::app()->urlManager->baseUrl 
+            $dump 
             . '/images/country/' 
             . ($country != 'zz' ? $country : 'clear') . '.png'
-        );
+		);
+		//throw new Exception($this->country);
         return parent::afterFind();
 	}
 
@@ -138,21 +140,24 @@ class Bans extends CActiveRecord
 	protected function beforeValidate() {
 		if($this->isNewRecord) {
 			if (!filter_var($this->player_ip, FILTER_VALIDATE_IP, array('flags' => FILTER_FLAG_IPV4))) {
-                return $this->addError($this->player_ip, 'Invalid IP');
+				if( $this->ban_type!='S' )
+					return $this->addError($this->player_ip, 'Invalid IP');
+				else
+					$this->player_ip = "IP_LAN";
             }
 
             if($this->player_ip && Bans::model()->count('`player_ip` = :ip AND (`ban_length` = 0 OR `ban_created` + (`ban_length` * 60) >= UNIX_TIMESTAMP())', array(
 					':ip' => $this->player_ip
 				)))
 			{
-				return $this->addError($this->player_ip, 'This IP is already Banned');
+				return $this->addError($this->player_ip, 'This IP is already banned');
 			}
 			
 			if($this->player_id && Bans::model()->count('`player_id` = :id AND (`ban_length` = 0 OR `ban_created` + (`ban_length` * 60) >= UNIX_TIMESTAMP())', array(
 					':id' => $this->player_id
 				)))
 			{
-				return $this->addError($this->player_id, 'This SteamID is already Banned');
+				return $this->addError($this->player_id, 'This SteamID is already banned');
 			}
 		}
 
