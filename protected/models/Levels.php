@@ -43,8 +43,8 @@ class Levels extends CActiveRecord
 	{
 		return array(
 			array('level', 'numerical', 'integerOnly'=>true),
-			array('bans_add, bans_edit, bans_delete, bans_unban, bans_import, bans_export, webadmins_view, webadmins_edit, websettings_view, websettings_edit, permissions_edit, prune_db, ip_view, zombie_edit', 'in', 'range' => array('yes', 'no', 'own')),
-			array('level, bans_add, bans_edit, bans_delete, bans_unban, bans_import, bans_export, webadmins_view, webadmins_edit, websettings_view, websettings_edit, permissions_edit, prune_db, ip_view, zombie_edit', 'safe', 'on'=>'search'),
+			array('bans_add, bans_edit, bans_delete, bans_unban, bans_import, bans_export, webadmins_view, webadmins_edit, websettings_view, websettings_edit, permissions_edit, prune_db, ip_view', 'in', 'range' => array('yes', 'no', 'own')),
+			array('level, bans_add, bans_edit, bans_delete, bans_unban, bans_import, bans_export, webadmins_view, webadmins_edit, websettings_view, websettings_edit, permissions_edit, prune_db, ip_view', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -71,7 +71,6 @@ class Levels extends CActiveRecord
 			'permissions_edit' => 'Editing WEB rights',
 			'prune_db' => 'DB optimization',
 			'ip_view' => 'IP viewing',
-			'zombie_edit' => 'Zombie Editing',
 		);
 	}
 
@@ -93,7 +92,6 @@ class Levels extends CActiveRecord
 		$criteria->compare('permissions_edit',$this->permissions_edit,true);
 		$criteria->compare('prune_db',$this->prune_db,true);
 		$criteria->compare('ip_view',$this->ip_view,true);
-		$criteria->compare('zombie_edit',$this->ip_view,true);
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
