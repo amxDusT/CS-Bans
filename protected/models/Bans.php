@@ -61,6 +61,7 @@ class Bans extends CActiveRecord
 			array('player_nick, ban_reason', 'length', 'max'=>100),
 			array('ban_type', 'in', 'range' => array('S', 'SI','I')),
 			array('update_ban', 'in', 'range' => array('0', '1','2')),
+			array('expired', 'in', 'range' => array('0', '1')),
 			//array('expiredTime', 'safe'),
 			array('bid, player_ip, player_last_ip, player_id, player_nick, admin_ip, admin_id, admin_nick, ban_type, ban_reason, ban_created, ban_length, server_ip, server_name, ban_kicks, expired, ccode, update_ban', 'safe', 'on'=>'search'),
 		);
@@ -112,13 +113,6 @@ class Bans extends CActiveRecord
 	protected function beforeSave() {
 		if($this->isNewRecord) {
 			$this->ban_created = time();
-		} else {
-			if($this->getUnbanned()) {
-				$this->expired = time() + $this->ban_length * 60;
-			} else {
-				 $oldban = self::model()->findByPk($this->bid);
-				 $this->expired = $oldban->expired + $this->ban_length * 60;
-			 }
 		}
 		return parent::beforeSave();
 	}

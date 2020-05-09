@@ -45,6 +45,8 @@
 	<?php echo $form->dropDownListRow($model, 'ban_length', Bans::getBanLenght()); ?>
 	
 	<?php echo $form->dropDownListRow($model, 'update_ban', array('0' => 'Don\'t Update', '1' => 'Update All', '2' => 'Start Ban on join')); ?>
+
+	<?php echo $form->dropDownListRow($model, 'expired', array('0' => 'No', '1' => 'Yes')); ?>
 </fieldset>
 	<div class="form-actions">
 		<?php $this->widget('bootstrap.widgets.TbButton', array(
