@@ -201,7 +201,7 @@ class Ip2Country extends CApplicationComponent {
      */
     public function lookup($ip = NULL)
     {
-		if (!$ip || !filter_var($this->player_ip, FILTER_VALIDATE_IP, array('flags' => FILTER_FLAG_IPV4))) {
+		if (!$ip || !filter_var($ip, FILTER_VALIDATE_IP, array('flags' => FILTER_FLAG_IPV4))) {
             return FALSE;
         }
         
