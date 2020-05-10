@@ -140,14 +140,14 @@ class Bans extends CActiveRecord
 					$this->player_ip = "IP_LAN";
             }
 
-            if($this->player_ip && Bans::model()->count('`player_ip` = :ip AND `ban_type` LIKE \'%I%\' AND (`ban_length` = 0 OR `ban_created` + (`ban_length` * 60) >= UNIX_TIMESTAMP())', array(
+            if($this->player_ip && Bans::model()->count('`player_ip` = :ip AND `ban_type` LIKE \'%I%\' AND `expired` = 0 AND (`ban_length` = 0 OR `ban_created` + (`ban_length` * 60) >= UNIX_TIMESTAMP())', array(
 					':ip' => $this->player_ip
 				)))
 			{
 				return $this->addError($this->player_ip, 'This IP is already banned');
 			}
 			
-			if($this->player_id && Bans::model()->count('`player_id` = :id AND `ban_type` LIKE \'%S%\' AND (`ban_length` = 0 OR `ban_created` + (`ban_length` * 60) >= UNIX_TIMESTAMP())', array(
+			if($this->player_id && Bans::model()->count('`player_id` = :id AND `ban_type` LIKE \'%S%\' AND `expired` = 0 AND (`ban_length` = 0 OR `ban_created` + (`ban_length` * 60) >= UNIX_TIMESTAMP())', array(
 					':id' => $this->player_id
 				)))
 			{
