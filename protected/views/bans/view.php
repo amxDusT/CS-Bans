@@ -124,7 +124,7 @@ if($model->ban_length == '-1') {
 				: $model->player_id,
 		),
 		'player_nick',
-		'adminName:html',
+		'admin_nick',
 		'ban_reason',
 		array(
 			'name' => 'ban_created',
@@ -135,7 +135,11 @@ if($model->ban_length == '-1') {
 			'type' => 'raw',
 			'value' => $length
 		),
-		'expiredTime',
+		array(
+			'name' => 'Expired Time',
+			'type' => 'raw',
+			'value' => Prefs::getExpired($model->ban_created, $model->ban_length)
+		),
 		'server_name',
 		'ban_kicks',
 	),

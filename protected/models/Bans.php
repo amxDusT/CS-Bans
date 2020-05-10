@@ -78,7 +78,6 @@ class Bans extends CActiveRecord
 			'admin_ip'			=> 'Admin IP',
 			'admin_id'			=> 'Admin SteamID',
 			'admin_nick'		=> 'Admin Nick',
-			'adminName'         => 'Admin',
 			'ban_type'			=> 'Ban Type',
 			'ban_reason'		=> 'Reason',
 			'ban_created'		=> 'Date',
