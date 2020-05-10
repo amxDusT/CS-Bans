@@ -89,7 +89,7 @@ class BansController extends Controller
 		// История банов
 		$history = new CActiveDataProvider('Bans', array(
 			'criteria' => array(
-				'condition' => '`bid` <> :hbid AND (`player_ip` = :hip OR `player_id` = :hid)',
+				'condition' => '`bid` <> :hbid AND ((`player_ip` = :hip AND `player_ip` <> \'IP_LAN\') OR (`player_id` = :hid AND `player_id` <> \'STEAM_ID_LAN\'))',
 				'params' => array(
 					':hbid' => $id,
 					':hip' => $model->player_ip,
